@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troll-Dealer</title>
+    <style>
+        :root {
+            --black: #1A1A1A;
+            --white: #FFFFFF;
+            --dark-gray: #2A2A2A;
+            --crimson: rgba(124, 13, 13, 0.306); /* 暗红蒙版颜色 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--black);
+            background: var(--white);
+        }
+
+        /* 主视觉区块 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background: 
+                linear-gradient(var(--crimson), var(--crimson)), /* 暗红蒙版 */
+                url('background.png') center/cover; /* 根目录图片 */
+            color: var(--white);
+        }
+
+        .logo {
+            font-size: 6rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            color: var(--white);
+            font-weight: 800;
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
+                        -1px -1px 0 rgba(0, 0, 0, 0.9),
+                        1px -1px 0 rgba(0, 0, 0, 0.9),
+                        -1px 1px 0 rgba(0, 0, 0, 0.9),
+                        1px 1px 0 rgba(0, 0, 0, 0.9),
+                        0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* 下载按钮 */
+        .download-btn {
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            background: var(--white);
+            color: var(--black);
+            border: 2px solid var(--white);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 2rem;
+        }
+
+        .download-btn:hover {
+            background: transparent;
+            color: var(--white);
+        }
+
+        /* 特性区块 */
+        .features {
+            padding: 4rem 2rem;
+            background: var(--dark-gray);
+            width: 100%;
+        }
+
+        .feature-card {
+            background: var(--dark-gray);
+            padding: 2rem;
+            margin: 2rem auto;
+            border-left: 4px solid var(--crimson);
+            color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5rem;
+            max-width: 1200px;
+        }
+
+        .feature-image {
+            width: 40%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .feature-content {
+            width: 40%;
+        }
+
+
+        @media (max-width: 768px) {
+            .feature-card {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .feature-image {
+                width: 100%;
+                max-width: 100%;
+                height: 200px;
+            }
+
+            .feature-content {
+                width: 100%;
+                padding: 0 1rem;
+            }
+
+            .feature-content h2 {
+                font-size: 1.5rem;
+                line-height: 1.4;
+                margin-bottom: 1rem;
+            }
+        }
+        /* 教程区块 */
+        .tutorial {
+            background: var(--black);
+            color: var(--white);
+            padding: 4rem 2rem;
+            width: 100%;
+        }
+
+        .step {
+            background: var(--black);
+            padding: 2rem;
+            margin: 2rem auto;
+            border-left: 4px solid var(--crimson);
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+        }
+
+        .step-image {
+            width: 40%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            order: 2;
+        }
+
+        .step-content {
+            width: 40%;
+            order: 3;
+        }
+
+        @media (max-width: 768px) {
+            .step {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .step-image,
+            .step-content {
+                width: 100%;
+            }
+
+            .step-image {
+                max-width: 100%;
+                height: 200px;
+            }
+        }
+        .step-number {
+            font-size: 4rem;
+            font-weight: 800;
+            opacity: 0.5;
+            width: 20%;
+            text-align: center;
+        }
+
+        .step-content {
+            width: 40%;
+            order: 3;
+        }
+
+        @media (max-width: 768px) {
+            .step {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .step-number,
+            .step-content {
+                width: 100%;
+            }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            color: var(--white);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .nav-brand:hover {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--crimson);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* 调整主视觉位置 */
+        .hero {
+            margin-top: 76px; /* 导航栏高度补偿 */
+            min-height: calc(100vh - 76px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .scroll-indicator:hover {
+            transform: translateX(-50%) translateY(5px);
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-right: 2px solid rgba(255, 255, 255, 0.8);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+            transform: rotate(45deg);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .download-btn {
+                width: 100%;
+                max-width: 280px;
+                background: transparent;
+                color: var(--white);
+            }
+
+            .download-btn:hover {
+                background: var(--white);
+                color: var(--black);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 新增导航栏 -->
+    <nav class="navbar">
+        <a href="#" class="nav-brand">Troll-Dealer</a>
+        <div class="nav-links">
+            <a href="https://red-2016.github.io" class="nav-link">?</a>
+            <a href="/fuck_me.html" class="nav-link">罵我</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1 class="logo">Troll-Dealer😅</h1>
+        <button class="download-btn" onclick="window.location.href='TrollDealer.exe'">
+            DOWNLOAD
+        </button>
+        <div class="scroll-indicator" onclick="window.scrollTo({top: document.querySelector('.features').offsetTop, behavior: 'smooth'})"></div>
+    </header>
+
+    <section class="features">
+        <div class="feature-card">
+            <img src="bad_example.png" class="feature-image">
+            <div class="feature-content">
+                <h2>和別人在網上發生衝突，大腦空白、緊張到手抖？</h2>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <img src="360_F_476328016_6JJItdTDYiv6auiByJoeHGjCTZjB0uVq.jpg" alt="技术架构" class="feature-image">
+            <div class="feature-content">
+                <h2>回過頭越想越氣，抱怨自己沒有發揮好？</h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="tutorial">
+        <div class="step">
+            <img src="download_img.png" class="step-image">
+            <div class="step-number">01</div>
+            <div class="step-content">
+                <h3>第一步：下載這個不到150MB的exe文件⬆️</h3>
+                <p>你現在同時擁有了博士、辯論家、噴子的大腦作為了你的靠山</p>
+            </div>
+        </div>
+        <div class="step">
+            <img src="example1.png" class="step-image">
+            <div class="step-number">02</div>
+            <div class="step-content">
+                <h3>第二步：讓我看看怎麼個事？</h3>
+                <p>拖動鼠標選中他的所有聊天內容罪行，然後拖進窗口中</p>
+            </div>
+        </div>
+        <div class="step">
+            <img src="example2.png" class="step-image">
+            <div class="step-number">03</div>
+            <div class="step-content">
+                <h3>第三步：你想怎麼處置</h3>
+                <p>補充你的一兩句額外要求，或者背景信息</p>
+            </div>
+        </div>
+        <div class="step">
+            <img src="bad_example_in_internet.png" class="step-image">
+            <div class="step-number">04</div>
+            <div class="step-content">
+                <h3>第四步：檢查，複製，絕殺</h3>
+                <p>查看殺傷力是否足夠，按下copy按鈕，然後有力回擊</p>
+            </div>
+        </div>
+        <div class="step">
+            <img src="example3.png" class="step-image">
+            <div class="step-number">-></div>
+            <div class="step-content">
+                <h3></h3>
+                <p></p>
+            </div>
+        </div>
+        <div class="step">
+            <img src="mode.png" class="step-image">
+            <div class="step-number">你也可以選擇做一個好人</div>
+            <div class="step-content">
+                <h3>自定義模式</h3>
+                <p>我們提供三種默認模式：攻擊、對話指導和任意語言翻譯。此外，你也可以自己創建模式，編寫提示詞，應對不同場景</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
