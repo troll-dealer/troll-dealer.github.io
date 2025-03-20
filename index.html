@@ -315,13 +315,17 @@
             .download-btn {
                 width: 100%;
                 max-width: 280px;
-                background: transparent;
-                color: var(--white);
+                background: var(--white) !important; /* 强制白色背景 */
+                color: var(--black) !important; /* 强制黑色文字 */
+                border: 2px solid var(--white) !important;
+                opacity: 1 !important;
             }
-
-            .download-btn:hover {
-                background: var(--white);
-                color: var(--black);
+        
+            .download-btn:hover,
+            .download-btn:active {
+                background: var(--white) !important;
+                color: var(--black) !important;
+                transform: scale(1.05); /* 保留点击反馈 */
             }
         }
 
